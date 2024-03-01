@@ -24,7 +24,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -87,15 +86,12 @@ public class RegisterController {
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody Register authenticationRequest) throws Exception {
 
 		try {
-			userAuthentication.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(),
-					authenticationRequest.getPassword()));
+			userDetailsService.loginCred(authenticationRequest);
 		} catch (BadCredentialsException e) {
 			throw new Exception("Incorrect username or password", e);
 		}
 
-		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
-
-		final String jwt = jwtTokenUtil.generateToken(userDetails);
+		final String jwt = jwtTokenUtil.generateToken(authenticationRequest.getEmail());
 
 		return ResponseEntity.ok(new AuthenticationResponse(jwt));
 	}
@@ -112,9 +108,7 @@ public class RegisterController {
 			throw new Exception("Incorrect username or password", e);
 		}
 
-		final UserDetails userDetails = userDetailsService1.loadUserByUsername(authenticationRequest.getEmail());
-
-		final String jwt = jwtTokenUtil.generateToken(userDetails);
+		final String jwt = jwtTokenUtil.generateToken(authenticationRequest.getEmail());
 
 		return ResponseEntity.ok(new AuthenticationResponse(jwt));
 	}

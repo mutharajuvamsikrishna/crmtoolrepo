@@ -39,4 +39,11 @@ public class UserDetail implements UserDetailsService {
 		return new User(user.getEmail(), user.getPassword(), new ArrayList<>());
 	}
 
+	public void loginCred(Register register) throws UsernameNotFoundException {
+		Register reg = repo.findByEmailAndPassword(register.getEmail(), register.getPassword());
+		if (reg == null) {
+			throw new UsernameNotFoundException("User not found with email: " + register.getEmail());
+		}
+	}
+
 }

@@ -48,7 +48,7 @@ import com.web.service.UserDetail1;
 import com.web.util.JwtUtil;
 
 @RestController
-
+@RequestMapping("/api/v1/")
 public class RegisterController {
 
 	@Autowired

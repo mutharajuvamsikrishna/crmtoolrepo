@@ -47,7 +47,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.csrf().disable().authorizeRequests()
-				.antMatchers("/authenticate", "/authenticate1", "/register", "/save", "/otp1", "/changepassword",
+				.antMatchers("/api/v1/authenticate", "/authenticate1", "/register", "/save", "/otp1", "/changepassword",
 						"/otp5", "/changepassword1", "/adminregister", "/adminotp1", "/adminsave",
 						"/adminchangepassword", "/adminotp5", "/adminchangepassword1", "/alluserregisters",
 						"/alladminregisters", "/superadminlogin", "/superchangepassword", "/superchangepassword1",

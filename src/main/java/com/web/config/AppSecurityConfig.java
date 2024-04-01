@@ -47,13 +47,16 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.csrf().disable().authorizeRequests()
-				.antMatchers("/api/v1/authenticate", "/authenticate1", "/register", "/save", "/otp1", "/changepassword",
-						"/otp5", "/changepassword1", "/adminregister", "/adminotp1", "/adminsave",
-						"/adminchangepassword", "/adminotp5", "/adminchangepassword1", "/alluserregisters",
-						"/alladminregisters", "/superadminlogin", "/superchangepassword", "/superchangepassword1",
-						"/superadmreq", "/superdelete", "/adminsearch", "/supreditupdate", "/superviewprofessional",
-						"/supreg", "/supsave", "/deleteuserreg", "/supadminreg", "/deleteadminreg", "/supadminsave",
-						"/getalladminreg", "/getallreg")
+				.antMatchers("/api/v1/authenticate", "/api/v1/authenticate1", "/api/v1/register", "/api/v1/save",
+						"/api/v1/otp1", "/api/v1/changepassword", "/api/v1/otp5", "/api/v1/changepassword1",
+						"/api/v1/adminregister", "/api/v1/adminotp1", "/api/v1/adminsave",
+						"/api/v1/adminchangepassword", "/api/v1/adminotp5", "/api/v1/adminchangepassword1",
+						"/api/v1/alluserregisters", "/api/v1/alladminregisters", "/api/v1/superadminlogin",
+						"/api/v1/superchangepassword", "/api/v1/superchangepassword1", "/api/v1/superadmreq",
+						"/api/v1/superdelete", "/api/v1/adminsearch", "/api/v1/supreditupdate",
+						"/api/v1/superviewprofessional", "/api/v1/supreg", "/api/v1/supsave", "/api/v1/deleteuserreg",
+						"/api/v1/supadminreg", "/api/v1/deleteadminreg", "/api/v1/supadminsave",
+						"/api/v1/getalladminreg", "/api/v1/getallreg")
 				.permitAll().anyRequest().authenticated().and().exceptionHandling().and().cors().and()
 
 				// Use the

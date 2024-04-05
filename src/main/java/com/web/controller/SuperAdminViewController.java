@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +33,8 @@ public class SuperAdminViewController {
 	RegisterRepo repo;
 	@Autowired
 	Register1Repo repo1;
+	@Value("${adminemail}")
+	private String adminEmail;
 
 	@GetMapping("/alluserregisters")
 	public List<Register> getAlluserRegister() {
@@ -84,7 +87,7 @@ public class SuperAdminViewController {
 	public void init() {
 		// Set default values for the fields
 		SuperAdminLogin defaultSuperUser = new SuperAdminLogin();
-		defaultSuperUser.setEmail("contact@oniesoft.com");
+		defaultSuperUser.setEmail(adminEmail);
 		defaultSuperUser.setPassword("Vamsi@2001");
 
 		adminrepo.save(defaultSuperUser);

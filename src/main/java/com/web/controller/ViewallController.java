@@ -13,6 +13,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
@@ -49,6 +50,8 @@ public class ViewallController {
 	private Register1Repo repo8;
 	@Autowired
 	SuperAdminRepo supadrepo;
+	@Value("${adminemail}")
+	private String adminEmail;
 
 	@PostMapping("/changepassword")
 	public ResponseEntity<?> changepassword(@RequestBody
@@ -129,10 +132,10 @@ public class ViewallController {
 
 			Otp otpEntity = new Otp(otpId, otp);
 			otprepo.save(otpEntity);
-			String adminemail = "contact@oniesoft.com";
+
 			try {
 				// Send OTP via email
-				sendEmail3(adminemail, "SuperAdmin ChangePassword OTP Verification",
+				sendEmail3(adminEmail, "SuperAdmin ChangePassword OTP Verification",
 						"Hello SuperAdmin" + ",\n\nYour OTP is: " + otp + " and it is valid for 5 minutes.");
 				System.out.println("Email sent successfully.");
 			} catch (MessagingException e) {
@@ -258,7 +261,6 @@ public class ViewallController {
 
 			Otp otpEntity = new Otp(otpId, otp);
 			otprepo.save(otpEntity);
-			String adminEmail = "slrvamsikrishna@gmail.com";
 
 			try {
 				// Send OTP via email

@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,6 +28,8 @@ public class EmpController {
 	private RegisterRepo repo5;
 	@Autowired
 	private EmailService emailservice;
+	@Value("${adminemail}")
+	private String adminEmail;
 
 	@PostMapping("/prosave") // save professional details
 	public String profesionalsave(@RequestBody Pro emp, Model model) throws MessagingException {
@@ -55,7 +58,7 @@ public class EmpController {
 				+ "**************************";
 
 		emailservice.sendEmail(email, subject, body);
-		String adminRecipientEmail = "contact@oniesoft.com";
+
 		String adminSubject = company + " Client from " + bdmname;
 		String adminBody = "Dear Ramana," + "\n" + "These details for  " + company
 				+ "  are saved in ONiE Soft CRM System." + "\n" + "**************************\n" + "BDM Name: "
@@ -64,7 +67,7 @@ public class EmpController {
 				+ "Region: " + region + "\n" + "Country: " + country + "\n" + "Website: " + web + "\n"
 				+ "Company LinkedIn Profile: " + link + "\n" + "Summary: " + summary + "\n"
 				+ "**************************";
-		emailservice.sendEmail(adminRecipientEmail, adminSubject, adminBody);
+		emailservice.sendEmail(adminEmail, adminSubject, adminBody);
 		return "personaldetails";
 
 	}

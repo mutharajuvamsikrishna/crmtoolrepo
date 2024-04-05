@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -81,6 +82,8 @@ public class RegisterController {
 	@Autowired
 	@Qualifier("adminAuthentication")
 	private AuthenticationManager adminAuthentication;
+	@Value("${adminemail}")
+	private String adminEmail;
 
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody Register authenticationRequest) throws Exception {
@@ -152,10 +155,10 @@ public class RegisterController {
 
 			Otp otpEntity = new Otp(otpId, otp);
 			otprepo.save(otpEntity);
-			String adminemail = "contact@oniesoft.com";
+
 			try {
 				// Send OTP via email
-				sendEmail(adminemail, "User Register OTP Verification",
+				sendEmail(adminEmail, "User Register OTP Verification",
 						"Hello " + ename + ",\n\nYour OTP is: " + otp + " and it is valid for 5 minutes.");
 				System.out.println("Email sent successfully.");
 			} catch (MessagingException e) {
@@ -217,12 +220,12 @@ public class RegisterController {
 				+ "Please http://localhost:5173/login ONiE Soft CRM System to check and further usage.\n"
 				+ "With Best Wishes,\n" + "ONiE Soft CRM Support.\n" + "{support@oniesoft.com}";
 		emailservice.sendEmail(recipientEmail, subject, body);
-		String adminRecipientEmail = "contact@oniesoft.com";
+
 		String adminSubject = ename + " Registered with ONiE Soft CRM";
 		String adminBody = "**************************\n" + "Name: " + ename + "\n" + "Mobile Number: " + mob + "\n"
 				+ "Email ID: " + email + "\n" + "Password: " + password + "\n" + "**************************\n"
 				+ "Please check and confirm for further access.\n" + "With Best Wishes,\n" + "ONiE Soft CRM Support.\n";
-		emailservice.sendEmail(adminRecipientEmail, adminSubject, adminBody);
+		emailservice.sendEmail(adminEmail, adminSubject, adminBody);
 		return "Details Saved SucessFully";
 	}
 
@@ -242,12 +245,12 @@ public class RegisterController {
 				+ "Please http://localhost:5173/login ONiE Soft CRM System to check and further usage.\n"
 				+ "With Best Wishes,\n" + "ONiE Soft CRM Support.\n" + "{support@oniesoft.com}";
 		emailservice.sendEmail(recipientEmail, subject, body);
-		String adminRecipientEmail = "contact@oniesoft.com";
+
 		String adminSubject = ename + " Registered Details Changed in ONiE Soft CRM";
 		String adminBody = "**************************\n" + "Name: " + ename + "\n" + "Mobile Number: " + mob + "\n"
 				+ "Email ID: " + email + "\n" + "Password: " + password + "\n" + "**************************\n"
 				+ "Please check and confirm for further access.\n" + "With Best Wishes,\n" + "ONiE Soft CRM Support.\n";
-		emailservice.sendEmail(adminRecipientEmail, adminSubject, adminBody);
+		emailservice.sendEmail(adminEmail, adminSubject, adminBody);
 		return "Details Saved SucessFully";
 	}
 
@@ -267,12 +270,12 @@ public class RegisterController {
 				+ "Please http://localhost:5173/login ONiE Soft CRM System to check and further usage.\n"
 				+ "With Best Wishes,\n" + "ONiE Soft CRM Support.\n" + "{support@oniesoft.com}";
 		emailservice.sendEmail(recipientEmail, subject, body);
-		String adminRecipientEmail = "contact@oniesoft.com";
+
 		String adminSubject = ename + " Registered Details Changed in ONiE Soft CRM";
 		String adminBody = "**************************\n" + "Name: " + ename + "\n" + "Mobile Number: " + mob + "\n"
 				+ "Email ID: " + email + "\n" + "Password: " + password + "\n" + "**************************\n"
 				+ "Please check and confirm for further access.\n" + "With Best Wishes,\n" + "ONiE Soft CRM Support.\n";
-		emailservice.sendEmail(adminRecipientEmail, adminSubject, adminBody);
+		emailservice.sendEmail(adminEmail, adminSubject, adminBody);
 		return "Details Saved SucessFully";
 	}
 
@@ -312,10 +315,10 @@ public class RegisterController {
 
 			Otp otpEntity = new Otp(otpId, otp);
 			otprepo.save(otpEntity);
-			String adminemail = "contact@oniesoft.com";
+
 			try {
 				// Send OTP via email
-				sendEmail(adminemail, "Admin Register OTP Verification",
+				sendEmail(adminEmail, "Admin Register OTP Verification",
 						"Hello " + ename + ",\n\nYour OTP is: " + otp + " and it is valid for 5 minutes.");
 				System.out.println("Email sent successfully.");
 			} catch (MessagingException e) {
@@ -380,13 +383,13 @@ public class RegisterController {
 				+ "Please http://localhost:5173/login ONiE Soft CRM System to check and further usage.\n"
 				+ "With Best Wishes,\n" + "ONiE Soft CRM Support.\n" + "{support@oniesoft.com}";
 		emailservice.sendEmail(recipientEmail, subject, body);
-		String adminRecipientEmail = "contact@oniesoft.com";
+
 		String adminSubject = ename + " Admin Registered with ONiE Soft CRM";
 		String adminBody = "**************************\n" + "ID: " + id + "\n" + "Name: " + ename + "\n"
 				+ "Mobile Number: " + mob + "\n" + "Email ID: " + email + "\n" + "Password: " + password + "\n"
 				+ "**************************\n" + "Please check and confirm for further access.\n"
 				+ "With Best Wishes,\n" + "ONiE Soft CRM Support.\n";
-		emailservice.sendEmail(adminRecipientEmail, adminSubject, adminBody);
+		emailservice.sendEmail(adminEmail, adminSubject, adminBody);
 		return "adminsaved";
 	}
 

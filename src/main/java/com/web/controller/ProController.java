@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +34,8 @@ public class ProController {
 	ViewAddmoreDetails service;
 	@Autowired
 	private EmailService emailservice;
+	@Value("${adminemail}")
+	private String adminEmail;
 
 	@GetMapping("/req")
 	public List<Pro> getPros() {
@@ -89,7 +92,6 @@ public class ProController {
 					+ "\n" + "Company LinkedIn Profile: " + link + "\n" + "Summary: " + summary + "\n"
 					+ "**************************";
 			emailservice.sendEmail(email, subject, body);
-			String adminRecipientEmail = "contact@oniesoft.com";
 			String adminSubject = company + " CRM Details Deleted By " + bdmname;
 			String adminBody = "Dear Ramana," + "\n" + "These details for  " + company + "  are Deleted"
 					+ " in ONiE Soft CRM System." + "\n" + "**************************\n" + "ID:  " + id + "\n"
@@ -98,7 +100,7 @@ public class ProController {
 					+ "\n" + "Region: " + region + "\n" + "Country: " + country + "\n" + "Website: " + web + "\n"
 					+ "Company LinkedIn Profile: " + link + "\n" + "Summary: " + summary + "\n"
 					+ "**************************";
-			emailservice.sendEmail(adminRecipientEmail, adminSubject, adminBody);
+			emailservice.sendEmail(adminEmail, adminSubject, adminBody);
 			repo1.deleteById(id);
 		}
 		return "Deleted Sucess Fully";
@@ -137,7 +139,7 @@ public class ProController {
 				+ "Company LinkedIn Profile: " + link + "\n" + "Summary: " + summary + "\n"
 				+ "**************************";
 		emailservice.sendEmail(email, subject, body);
-		String adminRecipientEmail = "contact@oniesoft.com";
+
 		String adminSubject = company + " CRM Details Updated By " + bdmname;
 		String adminBody = "Dear Ramana," + "\n" + "These details for  " + company
 				+ "  are Update and saved in ONiE Soft CRM System." + "\n" + "**************************\n" + "ID:  "
@@ -146,7 +148,7 @@ public class ProController {
 				+ intserv + "\n" + "Region: " + region + "\n" + "Country: " + country + "\n" + "Website: " + web + "\n"
 				+ "Company LinkedIn Profile: " + link + "\n" + "Summary: " + summary + "\n"
 				+ "**************************";
-		emailservice.sendEmail(adminRecipientEmail, adminSubject, adminBody);
+		emailservice.sendEmail(adminEmail, adminSubject, adminBody);
 		return service.updateUserEdit(pro);
 	}
 
@@ -175,7 +177,7 @@ public class ProController {
 				+ "Company LinkedIn Profile: " + link + "\n" + "Summary: " + summary + "\n"
 				+ "**************************";
 		emailservice.sendEmail(email, subject, body);
-		String adminRecipientEmail = "contact@oniesoft.com";
+
 		String adminSubject = company + " CRM Details Updated By " + bdmname;
 		String adminBody = "Dear Ramana," + "\n" + "These details for  " + company
 				+ "  are Update and saved in ONiE Soft CRM System." + "\n" + "**************************\n" + "ID:  "
@@ -184,7 +186,7 @@ public class ProController {
 				+ intserv + "\n" + "Region: " + region + "\n" + "Country: " + country + "\n" + "Website: " + web + "\n"
 				+ "Company LinkedIn Profile: " + link + "\n" + "Summary: " + summary + "\n"
 				+ "**************************";
-		emailservice.sendEmail(adminRecipientEmail, adminSubject, adminBody);
+		emailservice.sendEmail(adminEmail, adminSubject, adminBody);
 		return service.updateUserEdit(pro);
 	}
 

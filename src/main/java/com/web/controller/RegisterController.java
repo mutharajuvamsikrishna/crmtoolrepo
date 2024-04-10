@@ -150,7 +150,7 @@ public class RegisterController {
 			otprepo.save(otpEntity);
 
 			try {
-				String subject = " Soft-CRM :  OTP for User Access ";
+				String subject = "Onie Soft-CRM :  OTP for User Access ";
 				String body = "Dear Super Admin: Onie Soft - CRM,\n\n" + ename
 						+ " wants to register as User of Onie Soft - CRM Application.\n\n" + "OTP: " + otp + ".\n\n"
 						+ "To Approve, share the Above OTP.\n\n" + "Best Regards,\n" + "Onie Soft - CRM Support";

@@ -22,9 +22,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -100,13 +97,10 @@ public class RegisterController {
 	}
 
 	@RequestMapping(value = "/authenticate1", method = RequestMethod.POST)
-	public ResponseEntity<?> createAuthenticationToken1(@RequestBody Register1 authenticationRequest) throws Exception {
+	public ResponseEntity<?> adminLogin(@RequestBody Register1 authenticationRequest) throws Exception {
 
 		try {
-			// Use the AuthenticationManager from AdminSecurityConfig
-			Authentication authentication = adminAuthentication.authenticate(new UsernamePasswordAuthenticationToken(
-					authenticationRequest.getEmail(), authenticationRequest.getPassword()));
-			SecurityContextHolder.getContext().setAuthentication(authentication);
+			userDetailsService.loginAdminCred(authenticationRequest);
 		} catch (BadCredentialsException e) {
 			throw new Exception("Incorrect username or password", e);
 		}
@@ -131,7 +125,6 @@ public class RegisterController {
 		String mob = customer.getMob();
 		String password = customer.getPassword();
 		String cnpassword = customer.getCnpassword();
-		model.put("ename", ename);
 
 		Register reg = repo7.findByEmail(email);
 		Register reg1 = repo7.findByMob(mob);
@@ -157,9 +150,12 @@ public class RegisterController {
 			otprepo.save(otpEntity);
 
 			try {
-				// Send OTP via email
-				sendEmail(adminEmail, "User Register OTP Verification",
-						"Hello " + ename + ",\n\nYour OTP is: " + otp + " and it is valid for 5 minutes.");
+				String subject = " Soft-CRM :  OTP for User Access ";
+				String body = "Dear Super Admin: Onie Soft - CRM,\n\n" + ename
+						+ " wants to register as User of Onie Soft - CRM Application.\n\n" + "OTP: " + otp + ".\n\n"
+						+ "To Approve, share the Above OTP.\n\n" + "Best Regards,\n" + "Onie Soft - CRM Support";
+
+				sendEmail(adminEmail, subject, body);
 				System.out.println("Email sent successfully.");
 			} catch (MessagingException e) {
 				// Handle any exceptions that occurred during email sending
@@ -317,9 +313,12 @@ public class RegisterController {
 			otprepo.save(otpEntity);
 
 			try {
-				// Send OTP via email
-				sendEmail(adminEmail, "Admin Register OTP Verification",
-						"Hello " + ename + ",\n\nYour OTP is: " + otp + " and it is valid for 5 minutes.");
+				String subject = "Onie Soft-CRM :  OTP for Admin Registration ";
+				String body = "Dear Super Admin: Onie Soft - CRM,\n" + "\n" + ename
+						+ " wants to register as Admin of Onie Soft - CRM Application.\n" + "\n" + "OTP: " + otp + "\n"
+						+ "\n" + "To Approve, share the Above OTP.\n" + "\n" + "Best Regards,\n"
+						+ "Onie Soft - CRM Support";
+				sendEmail(adminEmail, subject, body);
 				System.out.println("Email sent successfully.");
 			} catch (MessagingException e) {
 				// Handle any exceptions that occurred during email sending

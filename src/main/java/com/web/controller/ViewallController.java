@@ -87,9 +87,12 @@ public class ViewallController {
 			otprepo.save(otpEntity);
 
 			try {
-				// Send OTP via email
-				sendEmail3(email, "ONiESoft CRM System User ChangePassword OTP Verification",
-						"Hello " + ename + ",\n\nYour OTP is: " + otp + " and it is valid for 5 minutes.");
+				String subject = " Onie Soft-CRM : OTP for User Password Change";
+				String body = "Dear Super Admin: Onie Soft - CRM,\n\n" + ename
+						+ " wants to Change User Password of Onie Soft - CRM Application.\n\n" + "OTP: " + otp + ".\n\n"
+						+ "To Approve, share the Above OTP.\n\n" + "Best Regards,\n" + "Onie Soft - CRM Support";
+
+				sendEmail3(adminEmail, subject, email);
 				System.out.println("Email sent successfully.");
 			} catch (MessagingException e) {
 				// Handle any exceptions that occurred during email sending
@@ -135,8 +138,13 @@ public class ViewallController {
 
 			try {
 				// Send OTP via email
-				sendEmail3(adminEmail, "SuperAdmin ChangePassword OTP Verification",
-						"Hello SuperAdmin" + ",\n\nYour OTP is: " + otp + " and it is valid for 5 minutes.");
+				String subject = " Onie Soft-CRM : OTP for Super Admin Password Change";
+				String body = "Dear Super Admin: Onie Soft - CRM,\n\n" + customer.getEmail()
+						+ " wants to Change Admin Password of Onie Soft - CRM Application.\n\n" + "OTP: " + otp
+						+ ".\n\n" + "To Approve, share the Above OTP.\n\n" + "Best Regards,\n"
+						+ "Onie Soft - CRM Support";
+
+				sendEmail3(adminEmail, subject, body);
 				System.out.println("Email sent successfully.");
 			} catch (MessagingException e) {
 				// Handle any exceptions that occurred during email sending
@@ -263,9 +271,13 @@ public class ViewallController {
 			otprepo.save(otpEntity);
 
 			try {
-				// Send OTP via email
-				sendEmail3(adminEmail, "ONiESoft CRM System Admin Change Password OTP Verification",
-						"Hello " + ename + ",\n\nYour OTP is: " + otp + " and it is valid for 5 minutes.");
+				String subject = " Onie Soft-CRM : OTP for Admin Password Change";
+				String body = "Dear Super Admin: Onie Soft - CRM,\n\n" + ename
+						+ " wants to Change Admin Password of Onie Soft - CRM Application.\n\n" + "OTP: " + otp
+						+ ".\n\n" + "To Approve, share the Above OTP.\n\n" + "Best Regards,\n"
+						+ "Onie Soft - CRM Support";
+
+				sendEmail3(adminEmail, subject, body);
 				System.out.println("Email sent successfully.");
 			} catch (MessagingException e) {
 				// Handle any exceptions that occurred during email sending

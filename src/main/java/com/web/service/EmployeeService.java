@@ -8,6 +8,7 @@ import javax.mail.MessagingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,8 @@ public class EmployeeService {
 	private RegisterRepo repo;
 	@Autowired
 	private ProRepo proRepo; // Add @Autowired for ProRepo
-
+	@Value("${adminemail}")
+	private String adminEmail;
 	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeService.class);
 
 	@Scheduled(cron = "0 0 10 * * ?")
@@ -51,7 +53,6 @@ public class EmployeeService {
 	public void sendMail(Pro action) throws MessagingException {
 		String subject = "Follow-Up Date Reminder";
 		String email = action.getEmail();
-		String adminemail = "slrvamsikrishna@gmail.com";
 		String name = action.getBdmname();
 		Date followup = action.getFollowup();
 		String date = followup.toLocaleString();
@@ -63,6 +64,6 @@ public class EmployeeService {
 				+ "Follow up with " + name + " before this date: " + followup + "\n\n" + "Best Wishes,\n"
 				+ "Onie soft CRM Support";
 		mailSender.sendEmail(email, subject, body);
-		mailSender.sendEmail(adminemail, subject, adminbody);
+		mailSender.sendEmail(adminEmail, subject, adminbody);
 	}
 }

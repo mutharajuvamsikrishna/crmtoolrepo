@@ -89,8 +89,10 @@ public class SuperAdminViewController {
 		SuperAdminLogin defaultSuperUser = new SuperAdminLogin();
 		defaultSuperUser.setEmail(adminEmail);
 		defaultSuperUser.setPassword("Vamsi@2001");
-
-		adminrepo.save(defaultSuperUser);
+		SuperAdminLogin superAdminLogin = adminrepo.findByEmail(adminEmail);
+		if (superAdminLogin == null) {
+			adminrepo.save(defaultSuperUser);
+		}
 	}
 
 }

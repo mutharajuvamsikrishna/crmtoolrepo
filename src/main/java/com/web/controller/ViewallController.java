@@ -92,7 +92,7 @@ public class ViewallController {
 						+ " wants to Change User Password of Onie Soft - CRM Application.\n\n" + "OTP: " + otp + ".\n\n"
 						+ "To Approve, share the Above OTP.\n\n" + "Best Regards,\n" + "Onie Soft - CRM Support";
 
-				sendEmail3(adminEmail, subject, email);
+				sendEmail3(adminEmail, subject, body);
 				System.out.println("Email sent successfully.");
 			} catch (MessagingException e) {
 				// Handle any exceptions that occurred during email sending

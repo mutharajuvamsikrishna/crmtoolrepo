@@ -22,7 +22,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 
-	private UserDetail myUserDetailsService;
+	private UserDetail         myUserDetailsService;
 
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
@@ -60,7 +60,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 				.permitAll().anyRequest().authenticated().and().exceptionHandling().and().cors().and()
 
 				// Use the
-				// configured
+			
 				// CORS settings
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 

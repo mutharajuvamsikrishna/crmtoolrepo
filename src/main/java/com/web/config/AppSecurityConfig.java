@@ -22,7 +22,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 
-	private UserDetail         myUserDetailsService;
+	private UserDetail  myUserDetailsService;
 
 	@Autowired
 	private JwtRequestFilter jwtRequestFilter;
@@ -47,6 +47,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		httpSecurity.csrf().disable().authorizeRequests()
+				.antMatchers("/v2/api-docs", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**","/swagger-ui/**").permitAll()
 				.antMatchers("/api/v1/authenticate", "/api/v1/authenticate1", "/api/v1/register", "/api/v1/save",
 						"/api/v1/otp1", "/api/v1/changepassword", "/api/v1/otp5", "/api/v1/changepassword1",
 						"/api/v1/adminregister", "/api/v1/adminotp1", "/api/v1/adminsave",
